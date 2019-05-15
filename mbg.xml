@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--数据库驱动 -->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!--数据库链接地址账号密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/logistics" userId="root"
+                        password="199972">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!--生成Model类存放位置 -->
+        <javaModelGenerator targetPackage="com.pojo"
+                            targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--生成映射文件存放位置 -->
+        <sqlMapGenerator
+                targetPackage="mapper"
+                targetProject=".\src\main\resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!--生成Dao类存放位置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.mapper" targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--生成对应表及类名 -->
+        <table tableName="accmodule" domainObjectName="Accmodule"></table>
+        <table tableName="area" domainObjectName="Area"></table>
+        <table tableName="balance" domainObjectName="Balance"></table>
+        <table tableName="car" domainObjectName="Car"></table>
+        <table tableName="cardetail" domainObjectName="Cardetail"></table>
+        <table tableName="carroad" domainObjectName="Carroad"></table>
+        <table tableName="customer" domainObjectName="Customer"></table>
+        <table tableName="customertype" domainObjectName="Customertype"></table>
+        <table tableName="module" domainObjectName="Module"></table>
+        <table tableName="orderstatus" domainObjectName="Orderstatus"></table>
+        <table tableName="paidtype" domainObjectName="Paidtype"></table>
+        <table tableName="sendtype" domainObjectName="Sendtype"></table>
+        <table tableName="transcar" domainObjectName="Transcar"></table>
+        <table tableName="userlog" domainObjectName="Userlog"></table>
+        <table tableName="users" domainObjectName="Users"></table>
+    </context>
+</generatorConfiguration>

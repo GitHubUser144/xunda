@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="com.controller"/>
+    <context:component-scan base-package="com.service"/>
+
+    <!-- 试图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <mvc:default-servlet-handler/>
+    <mvc:annotation-driven/>
+
+
+    <!-- 配置全局日期转换器 -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="webBindingInitializer">
+            <bean class="com.utils.CustomDateEdtor"/>
+        </property>
+    </bean>
+
+    <!-- 配置AOP -->
+    <bean id="check" class="com.interceptor.Mycheck">
+    </bean>
+
+    <aop:config>
+        <aop:pointcut id="rCheck" expression="execution(* com.controller.*.*(..)) and !execution(* com.controller.UsersController.login(..)) and !execution(* com.controller.*.*Page(..)) and !execution(* com.controller.*.get*(..)) and !execution(* com.controller.UsersController.userRepetition(..)) and !execution(* com.controller.UsersController.userLogout(..))"/>
+        <aop:aspect ref="check">
+            <aop:around method="roleCheck" pointcut-ref="rCheck"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
